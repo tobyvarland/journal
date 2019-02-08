@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_06_030816) do
+ActiveRecord::Schema.define(version: 2019_02_08_185527) do
 
   create_table "descriptors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "type", null: false
@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 2019_02_06_030816) do
     t.string "color", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "text_color"
+    t.integer "sort_order"
   end
 
   create_table "entries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

@@ -55,7 +55,7 @@ private
     elsif params.has_key? :mood
       params[:descriptor] = params.delete :mood
     end
-    params.require(:descriptor).permit(:type, :label, :color)
+    params.require(:descriptor).permit(:type, :label, :color, :text_color, :sort_order)
   end
 
 end

@@ -7,6 +7,9 @@
         <%= fa_icon("plus", text: "Add Entry") %>
       </button>
     </p>
+    <p class="small text-muted font-italic mb-1">
+      <%= page_entries_info @entries %>
+    </p>
     <div class="table-responsive">
       <table class="table table-sm table-bordered table-condensed table-striped">
         <thead>
@@ -28,6 +31,7 @@
           <% end %>
         </tbody>
       </table>
+      <%= paginate @entries %>
     </div>
   </div>
 </div>

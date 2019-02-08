@@ -1,0 +1,135 @@
+<div class="row">
+  <div class="col col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+    <%= form_with(model: @entry, url: entry_path(@entry), class: "text-light bg-dark p-3 mt-3") do |form| %>
+      <p class="small font-weight-bold text-white mb-2 text-uppercase">Edit Status Entry</p>
+      <div class="form-row">
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <%= form.label  :entry_at,
+                            "Date/Time:",
+                            class: "mb-0" %>
+            <%= form.datetime_local_field :entry_at,
+                                          class: 'shadow form-control form-control-sm',
+                                          required: true %>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-12">
+          <% unless @entry.subject.blank? %>
+            <div class="form-group">
+              <%= form.label  :subject_id,
+                              "Reacting To:",
+                              class: "mb-0" %>
+              <%= form.collection_select  :subject_id,
+                                          Entry.for_meal,
+                                          :id,
+                                          :dropdown_abbreviation,
+                                          { },
+                                          { class: 'shadow form-control form-control-sm' } %>
+            </div>
+          <% end %>
+          <% unless @entry.meal.blank? %>
+            <div class="form-group">
+              <%= form.label  :meal,
+                              "Meal:",
+                              class: "mb-0" %>
+              <%= form.text_area  :meal,
+                                  class: 'shadow form-control form-control-sm' %>
+              <small id="meal-help" class="form-text text-light">
+                Hashtags converted to filter links.
+              </small>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <%= form.label  :physiological_reaction,
+                            "Physiological Reaction:",
+                            class: "mb-0" %>
+            <%= form.text_area  :physiological_reaction,
+                                class: 'shadow form-control form-control-sm' %>
+            <small id="physiological-help" class="form-text text-light">
+              Hashtags converted to filter links.
+            </small>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <%= form.label  :notes,
+                            "Other Notes:",
+                            class: "mb-0" %>
+            <%= form.text_area  :notes,
+                                class: 'shadow form-control form-control-sm' %>
+            <small id="notes-help" class="form-text text-light">
+              Hashtags converted to filter links.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="form-group">
+            <%= form.label  :hunger_level_id,
+                            "Hunger:",
+                            class: "mb-0" %>
+            <%= form.collection_select  :hunger_level_id,
+                                        HungerLevel.all,
+                                        :id,
+                                        :label,
+                                        { include_blank: true },
+                                        { class: 'shadow form-control form-control-sm' } %>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="form-group">
+            <%= form.label  :energy_level_id,
+                            "Energy:",
+                            class: "mb-0" %>
+            <%= form.collection_select  :energy_level_id,
+                                        EnergyLevel.all,
+                                        :id,
+                                        :label,
+                                        { include_blank: true },
+                                        { class: 'shadow form-control form-control-sm' } %>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="form-group">
+            <%= form.label  :concentration_level_id,
+                            "Concentration:",
+                            class: "mb-0" %>
+            <%= form.collection_select  :concentration_level_id,
+                                        ConcentrationLevel.all,
+                                        :id,
+                                        :label,
+                                        { include_blank: true },
+                                        { class: 'shadow form-control form-control-sm' } %>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="form-group">
+            <%= form.label  :mood_id,
+                            "Mood:",
+                            class: "mb-0" %>
+            <%= form.collection_select  :mood_id,
+                                        Mood.all,
+                                        :id,
+                                        :label,
+                                        { include_blank: true },
+                                        { class: 'shadow form-control form-control-sm' } %>
+          </div>
+        </div>
+      </div>
+      <%= form.button fa_icon('check', text: 'Save'),
+                      class: 'shadow border btn btn-success btn-sm float-right',
+                      type: 'submit' %>
+      <%= link_to "Cancel",
+                  root_path,
+                  class: "btn btn-link text-white btn-sm float-right" %>
+      <div class="clearfix"><!----></div>
+    <% end %>
+  </div>
+</div>

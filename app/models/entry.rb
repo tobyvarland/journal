@@ -1,5 +1,8 @@
 class Entry < ApplicationRecord
 
+  # Pagination.
+  paginates_per 50
+
   # Associations.
   belongs_to  :hunger_level,
               optional: true
@@ -80,36 +83,20 @@ class Entry < ApplicationRecord
     end
     self.entry_at ||= DateTime.now.change(sec: 0)
   end
+  before_update :update_reaction_timestamps
+  def update_reaction_timestamps
+    if entry_at_changed?
+      diff = entry_at - entry_at_was
+      reactions.each do |r|
+        r.entry_at += diff
+        r.save
+      end
+    end
+  end
 
   # Methods.
-  def hunger_level_label
-    hunger_level.try(:label)
-  end
-  def hunger_level_label=(label)
-    self.hunger_level = HungerLevel.find_or_create_by(label: label) if label.present?
-  end
-  def energy_level_label
-    energy_level.try(:label)
-  end
-  def energy_level_label=(label)
-    self.energy_level = EnergyLevel.find_or_create_by(label: label) if label.present?
-  end
-  def concentration_level_label
-    concentration_level.try(:label)
-  end
-  def concentration_level_label=(label)
-    self.concentration_level = ConcentrationLevel.find_or_create_by(label: label) if label.present?
-  end
-  def mood_label
-    mood.try(:label)
-  end
-  def mood_label=(label)
-    self.mood = Mood.find_or_create_by(label: label) if label.present?
-  end
-  def as_json(options = {})
-    super((options || {}).merge({
-      :methods => [:hunger_level_label, :energy_level_label, :concentration_level_label, :mood_label]
-    }))
+  def dropdown_abbreviation
+    ActionController::Base.helpers.truncate("#{self.entry_at.strftime "%m/%d %l:%M %P"}: #{self.meal}", length: 80)
   end
 
   # Class methods.

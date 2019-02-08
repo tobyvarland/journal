@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col col-md-6">
+  <div class="col col-md-9">
     <%= render partial: 'new_form', locals: { descriptor: @new_descriptor } %>
   </div>
 </div>
@@ -18,16 +18,16 @@
   </div>
 </div>
 <div class="row">
-  <div class="col">
+  <div class="col-12 col-md-4">
     <%= render partial: 'descriptor_collection', locals: { title: "Hunger Levels", collection: @hunger_levels } %>
   </div>
-  <div class="col">
+  <div class="col-12 col-md-4">
     <%= render partial: 'descriptor_collection', locals: { title: "Energy Levels", collection: @energy_levels } %>
   </div>
-  <div class="col">
+  <div class="col-12 col-md-4">
     <%= render partial: 'descriptor_collection', locals: { title: "Concentration Levels", collection: @concentration_levels } %>
   </div>
-  <div class="col">
+  <div class="col-12 col-md-4">
     <%= render partial: 'descriptor_collection', locals: { title: "Moods", collection: @moods } %>
   </div>
 </div>

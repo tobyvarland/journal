@@ -17,6 +17,9 @@
                     title: "Copy to form to log again"
                   } %>
     <% end %>
+    <%= link_to fa_icon('pencil', class: "fa-fw"), 
+                edit_entry_path(entry), 
+                class: 'text-primary' %>
     <%= link_to fa_icon('times', class: "fa-fw"), 
                 entry_path(entry), 
                 method: :delete, 

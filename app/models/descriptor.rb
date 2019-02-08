@@ -1,7 +1,7 @@
 class Descriptor < ApplicationRecord
 
   # Scopes.
-  default_scope { order(:label) }
+  default_scope { order(:sort_order, :label) }
   
   # Defaults.
   attribute :color,
@@ -14,6 +14,12 @@ class Descriptor < ApplicationRecord
   validates :color,
             presence: true,
             format: { with: /\A#(?:[A-F0-9]{3}){1,2}\z/i }
+  validates :text_color,
+            allow_nil: true,
+            format: { with: /\A#(?:[A-F0-9]{3}){1,2}\z/i }
+  validates :sort_order,
+            allow_nil: true,
+            numericality: { only_integer: true }
 
   # Define options for type.
   def self.options_for_type

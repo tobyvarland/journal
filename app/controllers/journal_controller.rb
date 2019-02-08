@@ -14,7 +14,7 @@ class JournalController < ApplicationController
   # GET /admin
   def index
     @new_entry = Entry.new
-    @entries = apply_scopes(Entry).includes(:hunger_level, :energy_level, :concentration_level, :mood)
+    @entries = apply_scopes(Entry).includes(:hunger_level, :energy_level, :concentration_level, :mood).page(params[:page])
   end
 
 end

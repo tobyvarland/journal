@@ -1,7 +1,7 @@
 class EntriesController < ApplicationController
 
   # Callbacks.
-  before_action :set_entry, only: [:update, :destroy]
+  before_action :set_entry, only: [:edit, :update, :destroy]
 
   # POST /entries
   def create
@@ -13,6 +13,19 @@ class EntriesController < ApplicationController
       status[:danger] = 'Addition failed. Please try again.'
     end
     redirect_to root_path, flash: status
+  end
+
+  # GET /entries/:id/edit
+  def edit
+  end
+
+  # PATCH/PUT /entries/:id
+  def update
+    if @entry.update(entry_params)
+      redirect_to root_path
+    else
+      render :edit
+    end
   end
 
   # DELETE /entries/:id
@@ -38,13 +51,9 @@ private
     params.require(:entry).permit(:entry_at,
                                   :meal,
                                   :hunger_level_id,
-                                  :hunger_level_label,
                                   :energy_level_id,
-                                  :energy_level_label,
                                   :concentration_level_id,
-                                  :concentration_level_label,
                                   :mood_id,
-                                  :mood_label,
                                   :physiological_reaction,
                                   :notes)
   end

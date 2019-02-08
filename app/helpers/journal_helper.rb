@@ -34,7 +34,7 @@ module JournalHelper
             "#",
             class: "badge filter-on-click",
             data: { target: target, value: d.id },
-            style: "background-color: #{d.color}; color: #{auto_text_color(d.color)};"
+            style: "background-color: #{d.color}; color: #{d.text_color.blank? ? auto_text_color(d.color) : d.text_color};"
   end
 
   # Get text color (white or black) for given descriptor color.

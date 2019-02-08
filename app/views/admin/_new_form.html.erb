@@ -1,7 +1,7 @@
 <%= form_with(model: descriptor, url: descriptors_path, class: "border mt-3 bg-dark text-light p-3 rounded shadow") do |form| %>
   <p class="small font-weight-bold text-white mb-2 text-uppercase">New Item</p>
   <div class="row">
-    <div class="col-12 col-md-4">
+    <div class="col">
       <div class="form-group">
         <%= form.label  :type,
                         "Type:",
@@ -13,7 +13,16 @@
                           required: true } %>
       </div>
     </div>
-    <div class="col-12 col-md-4">
+    <div class="col">
+      <div class="form-group">
+        <%= form.label  :sort_order,
+                        "Order:",
+                        class: "mb-0" %>
+        <%= form.number_field :sort_order,
+                              class: 'shadow form-control form-control-sm' %>
+      </div>
+    </div>
+    <div class="col">
       <div class="form-group">
         <%= form.label  :label,
                         "Label:",
@@ -22,12 +31,21 @@
                             class: 'shadow form-control form-control-sm' %>
       </div>
     </div>
-    <div class="col-12 col-md-4">
+    <div class="col">
       <div class="form-group">
         <%= form.label  :color,
                         "Color:",
                         class: "mb-0" %>
         <%= form.text_field :color,
+                            class: 'shadow form-control form-control-sm' %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <%= form.label  :text_color,
+                        "Text Color:",
+                        class: "mb-0" %>
+        <%= form.text_field :text_color,
                             class: 'shadow form-control form-control-sm' %>
       </div>
     </div>
