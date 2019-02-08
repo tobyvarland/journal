@@ -1,0 +1,33 @@
+<%= render partial: 'new_form', locals: { entry: @new_entry } %>
+<div class="row mt-3">
+  <div class="col">
+    <%= render partial: "filter_form", locals: { entries: @entries } %>
+    <p>
+      <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#new-entry-modal">
+        <%= fa_icon("plus", text: "Add Entry") %>
+      </button>
+    </p>
+    <div class="table-responsive">
+      <table class="table table-sm table-bordered table-condensed table-striped">
+        <thead>
+          <tr>
+            <th class="text-center w-1">Date/Time</th>
+            <th>Meal</th>
+            <th class="text-center w-1">Hunger</th>
+            <th class="text-center w-1">Energy</th>
+            <th class="text-center w-1">Concentration</th>
+            <th class="text-center w-1">Mood</th>
+            <th>Physiological</th>
+            <th>Notes</th>
+            <th class="text-center w-1">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @entries.each do |e| %>
+            <%= render partial: "entry", object: e %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

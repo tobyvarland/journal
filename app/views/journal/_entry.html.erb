@@ -1,0 +1,28 @@
+<tr data-entry="<%= entry.to_json %>">
+  <td class="text-center nw"><%= entry.meal.blank? ? "<span class=\"text-muted font-italic\">+#{TimeDifference.between(entry.subject.entry_at, entry.entry_at).in_hours} hours</span>".html_safe : entry.entry_at.strftime("%m/%d %l:%M %P") %></td>
+  <td><%= entry.meal.blank? ? "<span class=\"text-muted font-italic\">#{render_with_hashtags(entry.subject.meal)}</span>".html_safe : render_with_hashtags(entry.meal).html_safe %></td>
+  <td class="text-center nw"><%= descriptor_pill(entry.hunger_level) %></td>
+  <td class="text-center nw"><%= descriptor_pill(entry.energy_level) %></td>
+  <td class="text-center nw"><%= descriptor_pill(entry.concentration_level) %></td>
+  <td class="text-center nw"><%= descriptor_pill(entry.mood) %></td>
+  <td><%= render_with_hashtags(entry.physiological_reaction).html_safe %></td>
+  <td><%= render_with_hashtags(entry.notes).html_safe %></td>
+  <td class="text-center nw">
+    <% unless entry.meal.blank? %>
+      <%= link_to fa_icon('clone', class: "fa-fw"), 
+                  "#", 
+                  class: 'text-primary clone-entry',
+                  data: {
+                    toggle: "tooltip",
+                    title: "Copy to form to log again"
+                  } %>
+    <% end %>
+    <%= link_to fa_icon('times', class: "fa-fw"), 
+                entry_path(entry), 
+                method: :delete, 
+                class: 'text-danger',
+                data: {
+                  confirm: 'Are you sure you want to delete this entry?'
+                } %>
+  </td>
+</tr>

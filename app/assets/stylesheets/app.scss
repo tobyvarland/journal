@@ -1,0 +1,35 @@
+$dark-gray: #033649;
+$aqua: #88ccd2;
+$dark-aqua: darken($aqua, 15%);
+$alt-row: #f2f4f7;
+
+body.controller-journal .time-changer {
+  cursor: pointer;
+}
+
+.w-1 {
+  white-space: nowrap !important;
+  width: 1%;
+}
+
+.nw {
+  white-space: nowrap;
+}
+
+.bg-dark {
+  background-color: $dark-gray !important;
+}
+
+.btn-success,
+.badge-success {
+  background-color: $aqua !important;
+  border-color: $dark-aqua !important;
+  outline-color: lighten($aqua, 20%);
+  &:hover, &:active {
+    background-color: $dark-aqua !important;
+  }
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: $alt-row !important;
+}

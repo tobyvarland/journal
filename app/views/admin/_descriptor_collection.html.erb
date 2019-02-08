@@ -1,0 +1,25 @@
+<h5><%= title %></h5>
+<% if collection.empty? %>
+  <p class="text-muted font-italic">No <%= title.downcase %> exist yet.</p>
+<% else %>
+  <div class="table-responsive">
+    <table class="table table-condensed table-striped table-hover table-sm table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th class="w-50">Label</th>
+          <th class="w-25 text-center">Color</th>
+          <th class="w-25 text-center">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% collection.each do |obj| %>
+          <tr>
+            <td><%= render partial: 'label_form', locals: { descriptor: obj } %></td>
+            <td class="text-center"><%= render partial: 'color_form', locals: { descriptor: obj } %></td>
+            <td class="text-center"><%= render partial: 'delete_form', locals: { descriptor: obj } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

@@ -1,0 +1,148 @@
+<%
+  h = {}
+  e = {}
+  c = {}
+  m = {}
+  entries.each do |entry|
+    unless entry.hunger_level.blank?
+      h[entry.hunger_level.label] = entry.hunger_level.id
+    end
+    unless entry.energy_level.blank?
+      e[entry.energy_level.label] = entry.energy_level.id
+    end
+    unless entry.concentration_level.blank?
+      c[entry.concentration_level.label] = entry.concentration_level.id
+    end
+    unless entry.mood.blank?
+      m[entry.mood.label] = entry.mood.id
+    end
+  end
+  h_array = []
+  e_array = []
+  c_array = []
+  m_array = []
+  h.keys.sort.each do |l|
+    h_array << [l, h[l]]
+  end
+  e.keys.sort.each do |l|
+    e_array << [l, e[l]]
+  end
+  c.keys.sort.each do |l|
+    c_array << [l, c[l]]
+  end
+  m.keys.sort.each do |l|
+    m_array << [l, m[l]]
+  end
+  collapse_class = "collapse"
+  unless  params["with_search_term"].blank? &&
+          params["with_hunger_level"].blank? &&
+          params["with_energy_level"].blank? &&
+          params["with_concentration_level"].blank? &&
+          params["with_mood"].blank? &&
+          params["sorted_by"].blank?
+    collapse_class = "show"
+  end
+%>
+
+<%= form_with url: root_path,
+              class: 'bg-dark text-white border rounded p-3 mb-3 filter-form',
+              method: 'get' do |f| %>
+
+  <p class="small font-weight-bold text-white mb-0 text-uppercase">
+    <a class="collapse-filters text-white collapsed" data-toggle="collapse" href="#collapse-filters" role="button" aria-collapsed="true" aria-controls="collapse-filters">
+      [ - ]
+    </a>
+    Filter
+  </p>
+
+  <div class="<%= collapse_class %> mt-2" id="collapse-filters">
+ 
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <%= f.label :with_hunger_level,
+                      'Hunger:',
+                      class: "mb-0"  %>
+          <%= f.select :with_hunger_level, 
+                        options_for_select(h_array,
+                                           params[:with_hunger_level]),
+                        { include_blank: true },
+                        { class: 'form-control form-control-sm' } %>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <%= f.label :with_energy_level,
+                      'Energy:',
+                      class: "mb-0"  %>
+          <%= f.select :with_energy_level, 
+                        options_for_select(e_array,
+                                           params[:with_energy_level]),
+                        { include_blank: true },
+                        { class: 'form-control form-control-sm' } %>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <%= f.label :with_concentration_level,
+                      'Concentration:',
+                      class: "mb-0"  %>
+          <%= f.select :with_concentration_level, 
+                        options_for_select(c_array,
+                                           params[:with_concentration_level]),
+                        { include_blank: true },
+                        { class: 'form-control form-control-sm' } %>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <%= f.label :with_mood,
+                      'Mood:',
+                      class: "mb-0"  %>
+          <%= f.select :with_mood, 
+                        options_for_select(m_array,
+                                           params[:with_mood]),
+                        { include_blank: true },
+                        { class: 'form-control form-control-sm' } %>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <%= f.label :sorted_by,
+                      'Sort By:',
+                      class: "mb-0"  %>
+          <%= f.select :sorted_by, 
+                options_for_select(Entry.options_for_sort,
+                                  params[:sorted_by]),
+                { include_blank: false },
+                { class: 'form-control form-control-sm' } %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <%= f.label :with_search_term,
+                      'Search:',
+                      class: "mb-0"  %>
+          <%= f.text_field  :with_search_term,
+                            class: 'form-control form-control-sm',
+                            value: params[:with_search_term] %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="float-right">
+          <%= link_to 'Reset', root_url, class: 'btn btn-link btn-sm text-white' %>
+          <%= f.button  fa_icon('filter', text: 'Filter'),
+                        class: 'btn btn-sm btn-success border shadow',
+                        type: 'submit' %>
+        </div>
+        <div class="clearfix"><!----></div>
+      </div>
+    </div>
+
+  </div>
+
+<% end %>

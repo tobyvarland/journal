@@ -1,0 +1,7 @@
+<%= form_with(model: descriptor, url: descriptor_path(descriptor)) do |form| %>
+  <div class="form-group mb-0">
+    <%= form.text_field :label,
+                        class: 'form-control form-control-sm',
+                        onchange: "this.form.submit();" %>
+  </div>
+<% end %>

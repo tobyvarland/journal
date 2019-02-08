@@ -1,0 +1,138 @@
+<div class="modal fade" tabindex="-1" role="dialog" id="new-entry-modal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="row">
+          <div class="col">
+            <%= form_with(model: entry, url: entries_path, class: "text-light bg-dark p-3") do |form| %>
+              <p class="small font-weight-bold text-white mb-2 text-uppercase">New Status Entry</p>
+              <div class="form-row">
+                <div class="col-12 col-md-6">
+                  <div class="form-group">
+                    <%= form.label  :entry_at,
+                                    "Date/Time:",
+                                    class: "mb-0" %>
+                    <%= form.datetime_local_field :entry_at,
+                                                  class: 'shadow form-control form-control-sm',
+                                                  required: true %>
+                    <% unless entry.subject.blank? %>
+                      <small id="time-help" class="form-text text-light">
+                        Set based on last meal:<br>
+                        <span class="shadow border badge badge-success time-changer" data-value="<%= (entry.subject.entry_at + 30.minutes).strftime "%FT%R" %>">+30 min</span>
+                        <span class="shadow border badge badge-success time-changer" data-value="<%= (entry.subject.entry_at + 60.minutes).strftime "%FT%R" %>">+1 hr</span>
+                        <span class="shadow border badge badge-success time-changer" data-value="<%= (entry.subject.entry_at + 180.minutes).strftime "%FT%R" %>">+3 hrs</span>
+                        <span class="shadow border badge badge-success time-changer" data-value="<%= (entry.subject.entry_at + 720.minutes).strftime "%FT%R" %>">+12 hrs</span>
+                      </small>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <%= form.label  :meal,
+                                    "Meal:",
+                                    class: "mb-0" %>
+                    <%= form.text_area  :meal,
+                                        class: 'shadow form-control form-control-sm',
+                                        placeholder: meal_placeholder(entry.subject) %>
+                    <small id="meal-help" class="form-text text-light">
+                      Leave blank if reacting to previous meal. Hashtags converted to filter links.
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-12 col-md-6">
+                  <div class="form-group">
+                    <%= form.label  :physiological_reaction,
+                                    "Physiological Reaction:",
+                                    class: "mb-0" %>
+                    <%= form.text_area  :physiological_reaction,
+                                        class: 'shadow form-control form-control-sm' %>
+                    <small id="physiological-help" class="form-text text-light">
+                      Hashtags converted to filter links.
+                    </small>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="form-group">
+                    <%= form.label  :notes,
+                                    "Other Notes:",
+                                    class: "mb-0" %>
+                    <%= form.text_area  :notes,
+                                        class: 'shadow form-control form-control-sm' %>
+                    <small id="notes-help" class="form-text text-light">
+                      Hashtags converted to filter links.
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="form-group">
+                    <%= form.label  :hunger_level_id,
+                                    "Hunger:",
+                                    class: "mb-0" %>
+                    <%= form.collection_select  :hunger_level_id,
+                                                HungerLevel.all,
+                                                :id,
+                                                :label,
+                                                { include_blank: true },
+                                                { class: 'shadow form-control form-control-sm' } %>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="form-group">
+                    <%= form.label  :energy_level_id,
+                                    "Energy:",
+                                    class: "mb-0" %>
+                    <%= form.collection_select  :energy_level_id,
+                                                EnergyLevel.all,
+                                                :id,
+                                                :label,
+                                                { include_blank: true },
+                                                { class: 'shadow form-control form-control-sm' } %>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="form-group">
+                    <%= form.label  :concentration_level_id,
+                                    "Concentration:",
+                                    class: "mb-0" %>
+                    <%= form.collection_select  :concentration_level_id,
+                                                ConcentrationLevel.all,
+                                                :id,
+                                                :label,
+                                                { include_blank: true },
+                                                { class: 'shadow form-control form-control-sm' } %>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="form-group">
+                    <%= form.label  :mood_id,
+                                    "Mood:",
+                                    class: "mb-0" %>
+                    <%= form.collection_select  :mood_id,
+                                                Mood.all,
+                                                :id,
+                                                :label,
+                                                { include_blank: true },
+                                                { class: 'shadow form-control form-control-sm' } %>
+                  </div>
+                </div>
+              </div>
+              <%= form.button fa_icon('check', text: 'Save'),
+                              class: 'shadow border btn btn-success btn-sm float-right',
+                              type: 'submit' %>
+              <%= form.button 'Reset',
+                              class: 'btn btn-link text-white btn-sm float-right clear-new-form-modal',
+                              type: 'reset' %>
+              <div class="clearfix"><!----></div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
