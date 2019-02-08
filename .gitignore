@@ -29,3 +29,4 @@
 # Ignore actual database & secrets config files.
 config/database.yml
 config/secrets.yml
+config/journal_auth.yml

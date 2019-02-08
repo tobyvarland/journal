@@ -22,5 +22,8 @@ module Journal
     # Set default time zone.
     config.time_zone = 'Eastern Time (US & Canada)'
 
+    # Load custom config for HTTP authentication.
+    config.journal_auth = config_for(:journal_auth)
+
   end
 end
