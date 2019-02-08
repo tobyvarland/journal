@@ -1,7 +1,7 @@
 <%= form_with(model: descriptor, url: descriptor_path(descriptor)) do |form| %>
   <div class="form-group mb-0">
-    <%= form.color_field  :color,
-                          class: 'form-control form-control-sm py-0 px-1',
-                          onchange: "this.form.submit();" %>
+    <%= form.text_field :color,
+                        class: 'form-control form-control-sm',
+                        onchange: "this.form.submit();" %>
   </div>
 <% end %>
